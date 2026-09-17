@@ -718,7 +718,7 @@ function vtlib_purify($input, $ignore = false) {
                 $tmp_markers = array();
                 if (!is_array($input) && (stripos($input, 'data:image/') !== false) && (stripos($input, ';base64,') !== false)) {
                     $input = preg_replace_callback(
-                        '/(["\'])(data:image\/(?!svg)[^;]+;base64,[^"\']+?)\1/i',
+						'/(["\'])(data:image\/(?!svg)[\w.+-]+;base64,[A-Za-z0-9+\/=]+)\1/i',
                         function($matches) use (&$tmp_markers) {
                             $marker = "VTIGERB64STRIPMARKER_" . md5(uniqid(mt_rand(), true)) . "_" . count($tmp_markers);
                             $tmp_markers[$marker] = $matches[2];
